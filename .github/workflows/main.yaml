@@ -60,7 +60,24 @@ jobs:
           path: safety-output.json
         if: always()
 
+npm-audit:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Clone the Repository
+        uses: actions/checkout@v2
 
+      - name: run npm audit
+        run: | 
+          npm audit -json | tee npmaudit-output.json
+        continue-on-error: true
+
+      - name: Upload the Retire.JS Output file
+        uses: actions/upload-artifact@v2
+        with:
+          name: npmaudit-ouput-File
+          path: npmaudit-ouput.json
+        if: always()
   deployment:
     runs-on: ubuntu-latest
     needs: oast-retire
