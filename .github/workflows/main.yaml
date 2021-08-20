@@ -98,10 +98,9 @@ jobs:
       - name: Upload the trufflehog Output file
         uses: actions/upload-artifact@v2
         with:
-          name: trufflehog_outout
+          name: trufflehog_output-file
           path: trufflehog_outout.json
         if: always()
-  
   Deployement:
     runs-on: ubuntu-latest
     needs: [oast-retire, oast-safety, oast-npmscan]
